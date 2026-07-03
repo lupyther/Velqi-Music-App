@@ -325,6 +325,20 @@ class SettingsScreen extends StatelessWidget {
                   children: [
                     _borderedTile(
                       context: context,
+                      title: Text("Tema oscuro"),
+                      subtitle: Text("Cambia entre tema oscuro y claro",
+                          style: Theme.of(context).textTheme.bodyMedium),
+                      trailing: Obx(
+                        () => CustSwitch(
+                            value: settingsController.themeModetype.value == ThemeType.dark,
+                            onChanged: (val) {
+                              settingsController.onThemeChange(
+                                  val ? ThemeType.dark : ThemeType.light);
+                            }),
+                      ),
+                    ),
+                    _borderedTile(
+                      context: context,
                       title: Text("language".tr),
                       subtitle: Text("languageDes".tr,
                           style: Theme.of(context).textTheme.bodyMedium),

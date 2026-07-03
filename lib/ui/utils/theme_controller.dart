@@ -25,9 +25,10 @@ class ThemeController extends GetxController {
     primaryColor.value =
         Color(Hive.box('appPrefs').get("themePrimaryColor") ?? 0xFF7C3AED);
 
-    // Velqi: single fixed theme. Ignore any saved preference and always
-    // use the Velqi dark theme (violet + teal).
-    changeThemeModeType(ThemeType.dark);
+    // Load saved theme preference, default to dark (index 2)
+    final savedIndex = Hive.box('appPrefs').get('themeModeType') ?? 2;
+    final themeType = ThemeType.values[savedIndex.clamp(0, ThemeType.values.length - 1)];
+    changeThemeModeType(themeType);
 
     _listenSystemBrightness();
 
@@ -38,7 +39,11 @@ class ThemeController extends GetxController {
     final platformDispatcher = WidgetsBinding.instance.platformDispatcher;
     platformDispatcher.onPlatformBrightnessChanged = () {
       systemBrightness = platformDispatcher.platformBrightness;
-      // Velqi uses a single fixed dark theme; ignore system brightness changes.
+      // Only react to system changes if user selected "system" mode
+      final savedIndex = Hive.box('appPrefs').get('themeModeType') ?? 2;
+      if (savedIndex == ThemeType.system.index) {
+        changeThemeModeType(ThemeType.system, sysCall: true);
+      }
     };
   }
 
