@@ -30,7 +30,7 @@ class NewVersionDialog extends StatelessWidget {
                       onPressed: () {
                         launchUrl(
                           Uri.parse(
-                            'https://github.com/dieegoleo/Velqi-Music-App/releases/latest',
+                            'https://github.com/lupyther/Velqi-Music-App/releases/latest',
                           ),
                           mode: LaunchMode.externalApplication,
                         );

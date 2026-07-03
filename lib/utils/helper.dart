@@ -166,7 +166,7 @@ Future<bool> newVersionCheck(String currentVersion) async {
     final client = HttpClient();
     client.connectionTimeout = const Duration(seconds: 8);
     final request = await client.getUrl(
-      Uri.parse('https://api.github.com/repos/dieegoleo/Velqi-Music-App/releases/latest'),
+      Uri.parse('https://api.github.com/repos/lupyther/Velqi-Music-App/releases/latest'),
     );
     request.headers.set('User-Agent', 'VelqiApp');
     request.headers.set('Accept', 'application/vnd.github+json');

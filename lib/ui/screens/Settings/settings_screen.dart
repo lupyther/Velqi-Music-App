@@ -120,7 +120,7 @@ class SettingsScreen extends StatelessWidget {
                             onTap: () {
                               launchUrl(
                                 Uri.parse(
-                                  'https://github.com/dieegoleo/Velqi-Music-App/releases/latest',
+                                  'https://github.com/lupyther/Velqi-Music-App/releases/latest',
                                 ),
                                 mode: LaunchMode.externalApplication,
                               );
@@ -719,7 +719,7 @@ class SettingsScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 6),
                           Text(
-                            "by @dieegoleo y @addhip",
+                            "by @lupyther",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium
