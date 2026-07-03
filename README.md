@@ -25,18 +25,31 @@ Velqi es una app de música libre y de código abierto para Android. Reproduce a
 - **Caché inteligente** — Las canciones se cachean al reproducir para una reproducción fluida.
 - **Descarga offline** — Guarda canciones en tu dispositivo y escúchalas sin internet.
 - **Letras sincronizadas** — Letras animadas palabra por palabra (vía LRCLIB) y modo texto plano.
-- **Tema dinámico Material You** — Los colores de la interfaz se adaptan a la carátula del álbum.
-- **Ecualizador integrado** — Soporte completo de ecualizador de hardware.
-- **Crossfade** — Transiciones suaves entre canciones (duración configurable).
 - **Radio / Cola** — Colas de radio automáticas desde cualquier canción, álbum o artista.
 - **Reproducción en segundo plano** — Controles completos en la notificación y pantalla de bloqueo.
-- **Navegación flexible** — Cambia entre barra inferior y barra lateral.
 - **Temporizador de sueño** — Detiene la reproducción después de un tiempo.
-- **Salto de silencio** — Salta automáticamente los silencios en las canciones.
 - **Gestión de biblioteca** — Crea playlists, guarda artistas y álbumes.
 - **Importar desde YouTube** — Comparte un link de YouTube o YouTube Music directamente a Velqi.
 - **Control de calidad** — Elige tu bitrate de streaming preferido.
 - **Cookies de YouTube** — Usa tus propias cookies para contenido restringido por región.
+
+### Traducciones
+
+Velqi está disponible en **50 idiomas**. Si quieres ayudar a mejorar o agregar una traducción, edita los archivos en la carpeta [`localization/`](localization/).
+
+| | | | | |
+|---|---|---|---|---|
+| Árabe | Azerbaiyano | Bengalí | Búlgaro | Birmano |
+| Catalán | Checo | Chino (Simplificado) | Chino (Tradicional) | Coreano |
+| Croata | Esperanto | Estonio | Euskera | Fiyiano |
+| Filipino | Finlandés | Francés | Gallego | Gaélico |
+| Alemán | Hindi | Holandés | Húngaro | Indonesio |
+| Interlengua | Irlandés | Italiano | Japonés | Kannada |
+| Jemer | Kurdo | Malayalam | Noruego | Oriya |
+| Persa | Polaco | Portugués | Punjabi | Rumano |
+| Ruso | Eslovaco | Serbio | Español | Sueco |
+| Tamil | Telugu | Turco | Ucraniano | Urdu |
+| Vietnamita | | | | |
 
 ### Descarga
 
@@ -98,18 +111,31 @@ Velqi is a free, open-source music streaming app for Android. It streams audio d
 - **Smart caching** — Songs are cached while playing for smooth, uninterrupted playback.
 - **Offline downloads** — Save tracks to your device and listen without internet.
 - **Synced lyrics** — Animated, word-by-word synchronized lyrics (via LRCLIB) alongside plain text support.
-- **Dynamic Material You theming** — UI accent colors adapt to the current track's album art.
-- **Built-in equalizer** — Full hardware equalizer support.
-- **Crossfade** — Smooth audio transitions between tracks (configurable duration).
 - **Radio / Queue** — Auto-generated radio queues from any song, album, or artist.
 - **Background playback** — Full notification controls and lock screen integration.
-- **Flexible navigation** — Switch between Bottom Bar and Side Navigation Bar.
 - **Sleep timer** — Stops playback after a set time.
-- **Silence skipping** — Automatically skips silent gaps in tracks.
 - **Playlist & library management** — Create playlists, bookmark artists and albums.
 - **Import from YouTube** — Share a YouTube or YouTube Music link directly into Velqi.
 - **Streaming quality control** — Choose your preferred audio bitrate.
 - **YouTube cookies support** — Use your own cookies for regional or restricted content.
+
+### Translations
+
+Velqi is available in **50 languages**. If you'd like to help improve or add a translation, edit the files in the [`localization/`](localization/) folder.
+
+| | | | | |
+|---|---|---|---|---|
+| Arabic | Azerbaijani | Bengali | Bulgarian | Burmese |
+| Catalan | Chinese (Simplified) | Chinese (Traditional) | Croatian | Czech |
+| Dutch | English | Esperanto | Estonian | Basque |
+| Fijian | Filipino | Finnish | French | Galician |
+| German | Gujarati | Hindi | Hungarian | Indonesian |
+| Interlingua | Irish | Italian | Japanese | Kannada |
+| Khmer | Korean | Kurdish | Malayalam | Norwegian |
+| Odia | Persian | Polish | Portuguese | Punjabi |
+| Romanian | Russian | Serbian | Slovak | Spanish |
+| Swedish | Tamil | Telugu | Turkish | Ukrainian |
+| Urdu | Vietnamese | | | |
 
 ### Download
 
