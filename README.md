@@ -1,27 +1,97 @@
-<img src="VelqiBanner.jpg" width="1200" alt="Velqi — Free Music Streaming"/>
+<img src="VelqiBanner.jpg" width="1200" alt="Velqi — Música Gratis"/>
 
 # Velqi
 
 <div align="center">
 
-[![Release](https://img.shields.io/github/v/release/lupyther/Velqi-Music-App?color=7C3AED&label=Latest%20Release&style=flat-square)](https://github.com/lupyther/Velqi-Music-App/releases/latest)
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg?style=flat-square)](https://www.gnu.org/licenses/gpl-3.0)
-[![Platform](https://img.shields.io/badge/Platform-Android-green?style=flat-square&logo=android)](https://github.com/lupyther/Velqi-Music-App/releases/latest)
-[![Flutter](https://img.shields.io/badge/Built%20with-Flutter-02569B?style=flat-square&logo=flutter)](https://flutter.dev)
+[![Release](https://img.shields.io/github/v/release/lupyther/Velqi-Music-App?color=7C3AED&label=Último%20Release&style=flat-square)](https://github.com/lupyther/Velqi-Music-App/releases/latest)
+[![License: GPL v3](https://img.shields.io/badge/Licencia-GPLv3-blue.svg?style=flat-square)](https://www.gnu.org/licenses/gpl-3.0)
+[![Platform](https://img.shields.io/badge/Plataforma-Android-green?style=flat-square&logo=android)](https://github.com/lupyther/Velqi-Music-App/releases/latest)
 
-[**Download**](#download) · [**Features**](#features) · [**Troubleshooting**](#troubleshooting)
+[**Descargar**](#descarga) · [**Funciones**](#funciones) · [**Solución de problemas**](#solución-de-problemas)
 
 </div>
 
 ---
 
-## Overview
+## Español
 
-Velqi is a free, open-source music streaming app for Android. It streams audio directly from YouTube and YouTube Music using an embedded Python backend — no accounts, no ads, no tracking.
+Velqi es una app de música libre y de código abierto para Android. Reproduce audio directo de YouTube y YouTube Music usando un backend de Python embebido — sin cuentas, sin anuncios, sin rastreo.
+
+### Funciones
+
+- **Sin anuncios** — Nunca, jamás.
+- **Sin cuenta requerida** — Abre la app y empieza a escuchar.
+- **Caché inteligente** — Las canciones se cachean al reproducir para una reproducción fluida.
+- **Descarga offline** — Guarda canciones en tu dispositivo y escúchalas sin internet.
+- **Letras sincronizadas** — Letras animadas palabra por palabra (vía LRCLIB) y modo texto plano.
+- **Tema dinámico Material You** — Los colores de la interfaz se adaptan a la carátula del álbum.
+- **Ecualizador integrado** — Soporte completo de ecualizador de hardware.
+- **Crossfade** — Transiciones suaves entre canciones (duración configurable).
+- **Radio / Cola** — Colas de radio automáticas desde cualquier canción, álbum o artista.
+- **Reproducción en segundo plano** — Controles completos en la notificación y pantalla de bloqueo.
+- **Navegación flexible** — Cambia entre barra inferior y barra lateral.
+- **Temporizador de sueño** — Detiene la reproducción después de un tiempo.
+- **Salto de silencio** — Salta automáticamente los silencios en las canciones.
+- **Gestión de biblioteca** — Crea playlists, guarda artistas y álbumes.
+- **Importar desde YouTube** — Comparte un link de YouTube o YouTube Music directamente a Velqi.
+- **Control de calidad** — Elige tu bitrate de streaming preferido.
+- **Cookies de YouTube** — Usa tus propias cookies para contenido restringido por región.
+
+### Descarga
+
+Elige el APK que coincida con la arquitectura de tu dispositivo:
+
+| Dispositivo | APK | Tamaño |
+|---|---|---|
+| Teléfonos modernos (2018+) | `Velqi-1.0.0-arm64-v8a.apk` | ~24 MB |
+| Teléfonos viejos | `Velqi-1.0.0-armeabi-v7a.apk` | ~23 MB |
+| Emuladores (BlueStacks, etc.) | `Velqi-1.0.0-x86_64.apk` | ~25 MB |
+
+<div align="center">
+
+<a href="https://github.com/lupyther/Velqi-Music-App/releases/latest"><img src="badge_github.png" width="250" alt="Descargar en GitHub"/></a>
+
+</div>
+
+> Si no sabes cuál elegir, descarga `Velqi-1.0.0-arm64-v8a.apk`.
+
+### Solución de problemas
+
+**La reproducción se detiene al apagar la pantalla / después de pocas canciones:**
+- Ve a **Ajustes → Optimización de batería** y pon Velqi en **Sin restricciones**, o habilita **Ignorar optimizaciones de batería** desde la app.
+
+**La pantalla de carga dura mucho en el primer arranque:**
+- Es normal. El primer inicio inicializa el motor de audio embebido (~15-30 segundos según el dispositivo). Los siguientes arranques son casi instantáneos.
+
+**El contenido no carga / errores de red:**
+- Verifica tu conexión a internet.
+- Si el contenido de YouTube está restringido por región, agrega tus cookies de YouTube en **Ajustes → Avanzado → Cookies de YouTube**.
+
+### Licencia
+
+```
+Velqi es software libre bajo la licencia GNU General Public License v3.0.
+
+Condiciones:
+- Las versiones modificadas deben seguir siendo libres y de código abierto.
+- No puede publicarse en tiendas de código cerrado (Google Play, App Store, etc.).
+- No puede usarse con fines comerciales sin permiso explícito.
+```
+
+### Descargo de responsabilidad
+
+Este proyecto es de uso educativo. No tiene afiliación con YouTube ni Google. Todo el contenido al que se accede a través de Velqi pertenece a sus respectivos propietarios.
+
+El software se provee "tal cual", sin garantía de ningún tipo.
 
 ---
 
-## Features
+## English
+
+Velqi is a free, open-source music streaming app for Android. It streams audio directly from YouTube and YouTube Music using an embedded Python backend — no accounts, no ads, no tracking.
+
+### Features
 
 - **Ad-free streaming** — No interruptions, ever.
 - **No login required** — Open the app and start listening immediately.
@@ -41,41 +111,25 @@ Velqi is a free, open-source music streaming app for Android. It streams audio d
 - **Streaming quality control** — Choose your preferred audio bitrate.
 - **YouTube cookies support** — Use your own cookies for regional or restricted content.
 
----
-
-## Download
+### Download
 
 Choose the APK that matches your device architecture:
 
 | Device Type | APK | Size |
 |---|---|---|
-| Modern phones (2018+) | `app-arm64-v8a-release.apk` | ~24 MB |
-| Older phones | `app-armeabi-v7a-release.apk` | ~23 MB |
-| Emulators (BlueStacks, etc.) | `app-x86_64-release.apk` | ~25 MB |
+| Modern phones (2018+) | `Velqi-1.0.0-arm64-v8a.apk` | ~24 MB |
+| Older phones | `Velqi-1.0.0-armeabi-v7a.apk` | ~23 MB |
+| Emulators (BlueStacks, etc.) | `Velqi-1.0.0-x86_64.apk` | ~25 MB |
 
-➡️ **[Download from Releases](https://github.com/lupyther/Velqi-Music-App/releases/latest)**
+<div align="center">
 
-> If you're unsure which APK to pick, download `app-arm64-v8a-release.apk`.
+<a href="https://github.com/lupyther/Velqi-Music-App/releases/latest"><img src="badge_github.png" width="250" alt="Get it on GitHub"/></a>
 
----
+</div>
 
-## Architecture
+> If you're unsure which APK to pick, download `Velqi-1.0.0-arm64-v8a.apk`.
 
-Velqi uses a hybrid Flutter + Python architecture:
-
-```
-Flutter UI  ←—HTTP—→  Python microservice (localhost:8765)
-                            ├── yt-dlp       → stream resolution
-                            └── ytmusicapi   → search, browse, metadata
-```
-
-- The Python backend runs **embedded inside the app process** using `serious_python`, with no external server or dependencies required.
-- All heavy networking and decryption is handled by the Python layer, keeping the Dart UI thread fast and responsive.
-- On first launch, the backend initialises in the background while the splash screen is shown. Subsequent launches are near-instant.
-
----
-
-## Troubleshooting
+### Troubleshooting
 
 **Playback stops when screen turns off / after a few songs:**
 - Go to **Settings → Battery Optimizations** and set Velqi to **Unrestricted**, or enable **Ignore Battery Optimizations** from within the app.
@@ -87,9 +141,7 @@ Flutter UI  ←—HTTP—→  Python microservice (localhost:8765)
 - Verify your internet connection.
 - If YouTube content is region-restricted, try adding your YouTube cookies via **Settings → Advanced → YouTube Cookies**.
 
----
-
-## License
+### License
 
 ```
 Velqi is free software licensed under the GNU General Public License v3.0.
@@ -100,9 +152,7 @@ Conditions:
 - Cannot be used for commercial or profitable purposes without explicit permission.
 ```
 
----
-
-## Disclaimer
+### Disclaimer
 
 This project is developed for educational purposes. It is not affiliated with, sponsored by, or endorsed by YouTube, Google, or any other content provider. All media content accessed through this app belongs to its respective rights holders.
 
