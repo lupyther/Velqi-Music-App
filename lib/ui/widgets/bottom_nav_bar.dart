@@ -8,13 +8,21 @@ class BottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final homeScreenController = Get.find<HomeScreenController>();
+    final isLight = Theme.of(context).brightness == Brightness.light;
+    // Theme-aware nav bar: pure black in dark, soft grey in light.
+    final barBg = isLight ? const Color(0xFFF2F2F4) : Colors.black;
+    final borderEdge = isLight ? const Color(0xFFE2E2E5) : const Color(0xFF1A1A1A);
+    final iconUnselected =
+        isLight ? const Color(0xFF8A8A8E) : const Color(0xFFB3B3B3);
+    final iconSelected =
+        isLight ? const Color(0xFF1A1A1A) : const Color(0xFFE0E0E0);
     return Obx(
       () => Container(
-        decoration: const BoxDecoration(
-          color: Colors.black,
+        decoration: BoxDecoration(
+          color: barBg,
           border: Border(
             top: BorderSide(
-              color: Color(0xFF1A1A1A),
+              color: borderEdge,
               width: 0.8,
             ),
           ),
@@ -27,7 +35,7 @@ class BottomNavBar extends StatelessWidget {
           shadowColor: Colors.transparent,
           surfaceTintColor: Colors.transparent,
           elevation: 0,
-          indicatorColor: Colors.white12,
+          indicatorColor: isLight ? Colors.black.withAlpha(12) : Colors.white12,
           labelBehavior:
               NavigationDestinationLabelBehavior.alwaysShow,
           animationDuration: const Duration(milliseconds: 400),
@@ -37,24 +45,32 @@ class BottomNavBar extends StatelessWidget {
               selectedIcon: Icons.home_rounded,
               label: modifyNgetlabel('home'.tr),
               selected: homeScreenController.tabIndex.value == 0,
+              iconUnselected: iconUnselected,
+              iconSelected: iconSelected,
             ),
             _navDest(
               icon: Icons.search_outlined,
               selectedIcon: Icons.search_rounded,
               label: modifyNgetlabel('search'.tr),
               selected: homeScreenController.tabIndex.value == 1,
+              iconUnselected: iconUnselected,
+              iconSelected: iconSelected,
             ),
             _navDest(
               icon: Icons.library_music_outlined,
               selectedIcon: Icons.library_music_rounded,
               label: modifyNgetlabel('library'.tr),
               selected: homeScreenController.tabIndex.value == 2,
+              iconUnselected: iconUnselected,
+              iconSelected: iconSelected,
             ),
             _navDest(
               icon: Icons.settings_outlined,
               selectedIcon: Icons.settings_rounded,
               label: modifyNgetlabel('settings'.tr),
               selected: homeScreenController.tabIndex.value == 3,
+              iconUnselected: iconUnselected,
+              iconSelected: iconSelected,
             ),
           ],
         ),
@@ -67,10 +83,12 @@ class BottomNavBar extends StatelessWidget {
     required IconData selectedIcon,
     required String label,
     required bool selected,
+    required Color iconUnselected,
+    required Color iconSelected,
   }) {
     return NavigationDestination(
-      icon: Icon(icon, color: const Color(0xFFB3B3B3)),
-      selectedIcon: Icon(selectedIcon, color: const Color(0xFFE0E0E0)),
+      icon: Icon(icon, color: iconUnselected),
+      selectedIcon: Icon(selectedIcon, color: iconSelected),
       label: label,
     );
   }

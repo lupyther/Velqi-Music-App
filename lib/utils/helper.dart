@@ -176,7 +176,23 @@ Future<bool> newVersionCheck(String currentVersion) async {
     final json = jsonDecode(body) as Map<String, dynamic>;
     final latestTag = (json['tag_name'] as String? ?? '').replaceAll('v', '').replaceAll('V', '').trim();
     final current = currentVersion.replaceAll('V', '').replaceAll('v', '').trim();
-    return latestTag.isNotEmpty && latestTag != current;
+    if (latestTag.isEmpty || current.isEmpty) return false;
+    return _isNewerVersion(latestTag, current);
+  } catch (_) {
+    return false;
+  }
+}
+
+bool _isNewerVersion(String latest, String current) {
+  try {
+    final latestParts = latest.split('.').map(int.parse).toList();
+    final currentParts = current.split('.').map(int.parse).toList();
+    for (var i = 0; i < latestParts.length; i++) {
+      if (i >= currentParts.length) return true;
+      if (latestParts[i] > currentParts[i]) return true;
+      if (latestParts[i] < currentParts[i]) return false;
+    }
+    return false;
   } catch (_) {
     return false;
   }

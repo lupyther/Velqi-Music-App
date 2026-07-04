@@ -323,71 +323,131 @@ class ThemeController extends GetxController {
         SystemUiOverlayStyle(
             statusBarIconBrightness: Brightness.dark,
             statusBarColor: Colors.transparent,
-            systemNavigationBarColor: Colors.white.withOpacity(0.002),
+            systemNavigationBarColor: const Color(0xFFF5F5F5),
             systemNavigationBarDividerColor: Colors.transparent,
             systemNavigationBarIconBrightness: Brightness.dark,
             systemStatusBarContrastEnforced: false,
             systemNavigationBarContrastEnforced: false),
       );
+      // Velqi Light theme — soft white/grey, not harsh
+      const velqiLightBg     = Color(0xFFF7F7F8); // soft off-white scaffold
+      const velqiLightCard   = Color(0xFFFFFFFF); // white cards
+      const velqiLightSurface= Color(0xFFF1F1F3); // elevated surfaces
+      const velqiLightBorder = Color(0xFFECECEC); // very subtle borders (was E0E0E0 — too strong)
+      const velqiLightDivider= Color(0xFFEFEFF1); // even softer for inner dividers
+      const velqiLightText   = Color(0xFF1A1A1A); // high-emphasis text
+      const velqiLightMuted  = Color(0xFF7A7A7A); // muted grey text
+      const velqiLightAccent = Color(0xFF5C5C5C); // accent for sliders/buttons
+      const velqiLightNavBg  = Color(0xFFF2F2F4); // bottom nav bar surface (slightly cooler than scaffold)
       final baseTheme = ThemeData(
-          useMaterial3: false,
+          useMaterial3: true,
           brightness: Brightness.light,
-          canvasColor: Colors.white,
-          colorScheme: ColorScheme.fromSwatch(
-              accentColor: Colors.grey[400],
-              backgroundColor: Colors.white,
-              cardColor: Colors.white,
-              brightness: Brightness.light),
-          primaryColor: Colors.white,
-          primaryColorLight: Colors.grey[300],
+          canvasColor: velqiLightBg,
+          primaryColor: velqiLightBg,
+          primaryColorDark: velqiLightCard,
+          primaryColorLight: velqiLightSurface,
+          scaffoldBackgroundColor: velqiLightBg,
+          dialogBackgroundColor: velqiLightCard,
+          cardColor: velqiLightCard,
+          dividerColor: velqiLightDivider,
+          splashColor: Colors.black12,
+          highlightColor: Colors.black12,
+          colorScheme: const ColorScheme.light(
+            primary: velqiLightAccent,
+            onPrimary: Colors.white,
+            secondary: velqiLightAccent,
+            onSecondary: Colors.white,
+            surface: velqiLightCard,
+            onSurface: velqiLightText,
+            surfaceContainerHighest: velqiLightSurface,
+            background: velqiLightBg,
+            onBackground: velqiLightText,
+            outline: velqiLightBorder,
+          ),
+          appBarTheme: const AppBarTheme(
+              backgroundColor: velqiLightBg,
+              surfaceTintColor: Colors.transparent,
+              elevation: 0,
+              iconTheme: IconThemeData(color: velqiLightText)),
+          floatingActionButtonTheme: const FloatingActionButtonThemeData(
+              backgroundColor: velqiLightCard,
+              foregroundColor: velqiLightText,
+              elevation: 1,
+              focusElevation: 1,
+              hoverElevation: 1,
+              splashColor: Colors.black12),
+          iconTheme: const IconThemeData(color: velqiLightText),
           progressIndicatorTheme: ProgressIndicatorThemeData(
-              linearTrackColor: Colors.grey[700], color: Colors.grey[400]),
-          textTheme: TextTheme(
-              titleLarge: const TextStyle(
+              color: velqiLightAccent, linearTrackColor: velqiLightBorder),
+          textTheme: const TextTheme(
+              titleLarge: TextStyle(
                 fontSize: 23,
                 fontWeight: FontWeight.bold,
+                color: velqiLightText,
               ),
-              titleMedium: const TextStyle(
-                fontWeight: FontWeight.bold,
+              titleMedium: TextStyle(
+                fontWeight: FontWeight.w600,
+                color: velqiLightText,
               ),
-              titleSmall: const TextStyle(),
-              labelMedium: const TextStyle(
+              titleSmall: TextStyle(color: velqiLightMuted),
+              labelMedium: TextStyle(
                 fontWeight: FontWeight.w800,
                 fontSize: 23,
+                color: velqiLightText,
               ),
-              labelSmall: const TextStyle(
-                  fontSize: 15, letterSpacing: 0, fontWeight: FontWeight.bold),
-              bodyMedium: TextStyle(color: Colors.grey[700])),
-          navigationRailTheme: NavigationRailThemeData(
-              backgroundColor: Colors.white,
-              selectedIconTheme: const IconThemeData(color: Colors.black),
-              unselectedIconTheme: IconThemeData(color: Colors.grey[800]),
-              selectedLabelTextStyle: const TextStyle(
-                  color: Colors.black,
+              labelSmall: TextStyle(
+                  fontSize: 15,
+                  letterSpacing: 0,
+                  fontWeight: FontWeight.w600,
+                  color: velqiLightText),
+              bodyLarge: TextStyle(color: velqiLightText),
+              bodyMedium: TextStyle(color: velqiLightMuted),
+              bodySmall: TextStyle(color: velqiLightMuted)),
+          navigationBarTheme: NavigationBarThemeData(
+              backgroundColor: velqiLightNavBg,
+              surfaceTintColor: Colors.transparent,
+              indicatorColor: Colors.black.withAlpha(10),
+              elevation: 0,
+              labelTextStyle: WidgetStateProperty.resolveWith((states) =>
+                  TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: states.contains(WidgetState.selected)
+                          ? velqiLightText
+                          : velqiLightMuted)),
+              iconTheme: WidgetStateProperty.resolveWith((states) =>
+                  IconThemeData(
+                      color: states.contains(WidgetState.selected)
+                          ? velqiLightText
+                          : velqiLightMuted))),
+          navigationRailTheme: const NavigationRailThemeData(
+              backgroundColor: velqiLightBg,
+              selectedIconTheme: IconThemeData(color: velqiLightText),
+              unselectedIconTheme: IconThemeData(color: velqiLightMuted),
+              selectedLabelTextStyle: TextStyle(
+                  color: velqiLightText,
                   fontWeight: FontWeight.bold,
                   fontSize: 15),
               unselectedLabelTextStyle: TextStyle(
-                  color: Colors.grey[800], fontWeight: FontWeight.bold)),
+                  color: velqiLightMuted, fontWeight: FontWeight.bold)),
           bottomSheetTheme: const BottomSheetThemeData(
-              backgroundColor: Colors.white, modalBarrierColor: Colors.white),
+              backgroundColor: velqiLightCard,
+              surfaceTintColor: Colors.transparent,
+              modalBarrierColor: Colors.black26),
           sliderTheme: SliderThemeData(
-            //base bar color
-            inactiveTrackColor: Colors.black38,
-            //buffered progress
-            activeTrackColor: Colors.grey[800],
-            //progress bar color
-            valueIndicatorColor: Colors.white38,
-            thumbColor: Colors.grey[800],
+            inactiveTrackColor: velqiLightBorder,
+            activeTrackColor: velqiLightAccent,
+            valueIndicatorColor: velqiLightSurface,
+            thumbColor: velqiLightAccent,
           ),
-          textSelectionTheme: TextSelectionThemeData(
-              cursorColor: Colors.grey[400],
-              selectionColor: Colors.grey[400],
-              selectionHandleColor: Colors.grey[400]),
-          dialogTheme: DialogThemeData(backgroundColor: Colors.grey[200]),
+          textSelectionTheme: const TextSelectionThemeData(
+              cursorColor: velqiLightAccent,
+              selectionColor: Colors.black26,
+              selectionHandleColor: velqiLightAccent),
           inputDecorationTheme: const InputDecorationTheme(
-              focusColor: Colors.black,
+              focusColor: velqiLightAccent,
               focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black))));
+                  borderSide: BorderSide(color: velqiLightAccent))));
       return baseTheme.copyWith(
           textTheme: GoogleFonts.interTextTheme(baseTheme.textTheme));
     }

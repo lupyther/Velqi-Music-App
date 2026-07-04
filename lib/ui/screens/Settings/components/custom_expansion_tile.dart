@@ -15,11 +15,17 @@ class CustomExpansionTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
+    final isLight = Theme.of(context).brightness == Brightness.light;
+    // In light mode borders read as harsh "boxes"; soften alpha so the
+    // outline stays subtle (matches the velvet light border intent).
+    final edgeAlpha = isLight ? 40 : 80;
+    final childEdgeAlpha = isLight ? 26 : 35;
 
     return Container(
       margin: const EdgeInsets.only(bottom: 14),
       decoration: BoxDecoration(
-        border: Border.all(color: cs.outline.withAlpha(80), width: 1.2),
+        border: Border.all(
+            color: cs.outline.withAlpha(edgeAlpha), width: 1.2),
         borderRadius: BorderRadius.circular(14),
       ),
       child: ClipRRect(
@@ -57,7 +63,8 @@ class CustomExpansionTile extends StatelessWidget {
                       margin: const EdgeInsets.only(top: 4),
                       decoration: BoxDecoration(
                         border: Border.all(
-                            color: cs.outline.withAlpha(35), width: 1),
+                            color: cs.outline.withAlpha(childEdgeAlpha),
+                            width: 1),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: child,

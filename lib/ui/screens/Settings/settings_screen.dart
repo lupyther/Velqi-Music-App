@@ -21,11 +21,13 @@ import 'settings_screen_controller.dart';
 
 Widget _settingsDropdown(ThemeData theme, Widget child) {
   final cs = theme.colorScheme;
+  final isLight = theme.brightness == Brightness.light;
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(8),
-      border: Border.all(color: cs.outline.withAlpha(60), width: 1),
+      border: Border.all(
+          color: cs.outline.withAlpha(isLight ? 40 : 60), width: 1),
     ),
     child: child,
   );
@@ -34,10 +36,12 @@ Widget _settingsDropdown(ThemeData theme, Widget child) {
 Widget _settingsOutlinedButton(BuildContext context, String label,
     {VoidCallback? onPressed}) {
   final cs = Theme.of(context).colorScheme;
+  final isLight = Theme.of(context).brightness == Brightness.light;
   return OutlinedButton(
     onPressed: onPressed,
     style: OutlinedButton.styleFrom(
-      side: BorderSide(color: cs.outline.withAlpha(100), width: 1.2),
+      side: BorderSide(
+          color: cs.outline.withAlpha(isLight ? 70 : 100), width: 1.2),
       foregroundColor: cs.onSurface,
       padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
@@ -58,10 +62,12 @@ Widget _borderedTile({
   bool isThreeLine = false,
 }) {
   final cs = Theme.of(context).colorScheme;
+  final isLight = Theme.of(context).brightness == Brightness.light;
   return Container(
     margin: const EdgeInsets.symmetric(horizontal: 2, vertical: 2),
     decoration: BoxDecoration(
-      border: Border.all(color: cs.outline.withAlpha(25), width: 1),
+      border: Border.all(
+          color: cs.outline.withAlpha(isLight ? 18 : 25), width: 1),
       borderRadius: BorderRadius.circular(10),
     ),
     child: ListTile(
@@ -325,17 +331,25 @@ class SettingsScreen extends StatelessWidget {
                   children: [
                     _borderedTile(
                       context: context,
-                      title: Text("Tema oscuro"),
+                      title: Text("Tema oscuro (experimental)"),
                       subtitle: Text("Cambia entre tema oscuro y claro",
                           style: Theme.of(context).textTheme.bodyMedium),
                       trailing: Obx(
-                        () => CustSwitch(
-                            value: settingsController.themeModetype.value == ThemeType.dark,
+                        () {
+                          // Treat any non-light theme (dynamic/system/dark)
+                          // as "oscuro" on the switch, so it reflects the
+                          // real appearance instead of only literal `dark`.
+                          final isLight =
+                              settingsController.themeModetype.value ==
+                                  ThemeType.light;
+                          return CustSwitch(
+                            value: !isLight,
                             onChanged: (val) {
                               settingsController.onThemeChange(
                                   val ? ThemeType.dark : ThemeType.light);
-                            }),
-                      ),
+                            },
+                          );
+                        }),
                     ),
                     _borderedTile(
                       context: context,
@@ -722,6 +736,13 @@ class SettingsScreen extends StatelessWidget {
                               height: 140,
                               fit: BoxFit.contain,
                               filterQuality: FilterQuality.high,
+                              color: Theme.of(context).brightness ==
+                                      Brightness.light
+                                  // tinta el PNG blanco a negro en tema claro
+                                  // (colorFilter multiplica blanco→colorDestino)
+                                  ? Colors.black.withAlpha(230)
+                                  : null,
+                              colorBlendMode: BlendMode.srcIn,
                             ),
                           ),
                           const SizedBox(height: 12),

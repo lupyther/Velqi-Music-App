@@ -43,7 +43,7 @@ class SettingsScreenController extends GetxController {
   final restorePlaybackSession = false.obs;
   final cacheHomeScreenData = true.obs;
   final fastMode = false.obs;
-  final currentVersion = "V1.0.0";
+  final currentVersion = "V1.0.1";
 
   // ── YouTube Cookies ────────────────────────────────────────────────────────
   final cookiesActive = false.obs;
