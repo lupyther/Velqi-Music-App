@@ -40,7 +40,7 @@ class MiniPlayer extends StatelessWidget {
               color: Theme.of(context).bottomSheetTheme.backgroundColor,
               border: Border(
                 top: BorderSide(
-                  color: cs.outline.withValues(alpha: 0.08),
+                  color: cs.outline.withOpacity(0.08),
                   width: 0.5,
                 ),
               ),
@@ -68,12 +68,12 @@ class MiniPlayer extends StatelessWidget {
                         thumbRadius: 5,
                         barHeight: 3,
                         thumbGlowRadius: 0,
-                        baseBarColor: cs.outline.withValues(alpha: 0.15),
-                        bufferedBarColor: cs.outline.withValues(alpha: 0.25),
+                        baseBarColor: cs.outline.withOpacity(0.15),
+                        bufferedBarColor: cs.outline.withOpacity(0.25),
                         progressBarColor: cs.onSurface,
                         thumbColor: cs.onSurface,
                         timeLabelTextStyle:
-                            tt.titleMedium?.copyWith(fontSize: 11, color: cs.onSurface.withValues(alpha: 0.5)),
+                            tt.titleMedium?.copyWith(fontSize: 11, color: cs.onSurface.withOpacity(0.5)),
                         progress: c.progressBarStatus.value.current,
                         total: c.progressBarStatus.value.total,
                         buffered: c.progressBarStatus.value.buffered,
@@ -122,7 +122,7 @@ class MiniPlayer extends StatelessWidget {
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: tt.bodySmall?.copyWith(
-                                    color: cs.onSurface.withValues(alpha: 0.55),
+                                    color: cs.onSurface.withOpacity(0.55),
                                   ),
                                 ),
                               ],
@@ -175,7 +175,7 @@ class MiniPlayer extends StatelessWidget {
       icon: Icon(
         icon,
         color: disabled || faded
-            ? cs.onSurface.withValues(alpha: disabled ? 0.2 : 0.35)
+            ? cs.onSurface.withOpacity(disabled ? 0.2 : 0.35)
             : cs.onSurface,
       ),
     );
@@ -334,7 +334,7 @@ class MiniPlayer extends StatelessWidget {
               onTap: pc.mute,
               child: Icon(
                 v == 0 ? Icons.volume_off_rounded : v < 50 ? Icons.volume_down_rounded : Icons.volume_up_rounded,
-                size: 18, color: cs.onSurface.withValues(alpha: 0.6),
+                size: 18, color: cs.onSurface.withOpacity(0.6),
               ),
             ),
             Expanded(

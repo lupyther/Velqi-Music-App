@@ -74,6 +74,7 @@ android/app/.cxx/Debug/*
 # Velqi local rebranding files
 Velqi Free Music.jpeg
 Velqi-Rebrand-Instrucciones.txt
+VELQI_REBRAND_GUIDE.txt
 windows/packaging/exe/Velqi-Setup-dieegoleo.exe
 assets/cookies.txt
 python/cookies.txt

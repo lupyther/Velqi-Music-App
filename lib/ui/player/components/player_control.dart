@@ -24,9 +24,9 @@ class PlayerControlWidget extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
           decoration: BoxDecoration(
-            color: cs.surfaceContainerHighest.withValues(alpha: 0.35),
+            color: cs.surfaceContainerHighest.withOpacity(0.35),
             border: Border.all(
-              color: cs.outline.withValues(alpha: 0.08),
+              color: cs.outline.withOpacity(0.08),
               width: 0.5,
             ),
             borderRadius: BorderRadius.circular(20),
@@ -73,7 +73,7 @@ class PlayerControlWidget extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                               style: tt.labelSmall?.copyWith(
                                 fontSize: 13,
-                                color: cs.onSurface.withValues(alpha: 0.55),
+                                color: cs.onSurface.withOpacity(0.55),
                                 letterSpacing: -0.2,
                               ),
                             ),
@@ -91,8 +91,8 @@ class PlayerControlWidget extends StatelessWidget {
                 return ProgressBar(
                   thumbRadius: 6,
                   barHeight: 4,
-                  baseBarColor: cs.outline.withValues(alpha: 0.15),
-                  bufferedBarColor: cs.outline.withValues(alpha: 0.25),
+                  baseBarColor: cs.outline.withOpacity(0.15),
+                  bufferedBarColor: cs.outline.withOpacity(0.25),
                   progressBarColor: cs.primary,
                   thumbColor: cs.primary,
                   thumbGlowRadius: 12,
@@ -101,7 +101,7 @@ class PlayerControlWidget extends StatelessWidget {
                   timeLabelTextStyle: tt.titleMedium?.copyWith(
                     fontSize: 11,
                     fontWeight: FontWeight.w500,
-                    color: cs.onSurface.withValues(alpha: 0.5),
+                    color: cs.onSurface.withOpacity(0.5),
                   ),
                   progress: controller.progressBarStatus.value.current,
                   total: controller.progressBarStatus.value.total,
@@ -127,14 +127,14 @@ class PlayerControlWidget extends StatelessWidget {
                     height: 64,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: cs.primary.withValues(alpha: 0.12),
+                      color: cs.primary.withOpacity(0.12),
                       border: Border.all(
-                        color: cs.primary.withValues(alpha: 0.25),
+                        color: cs.primary.withOpacity(0.25),
                         width: 1.5,
                       ),
                       boxShadow: [
                         BoxShadow(
-                          color: cs.primary.withValues(alpha: 0.15),
+                          color: cs.primary.withOpacity(0.15),
                           blurRadius: 12,
                           spreadRadius: 0,
                         ),
@@ -189,7 +189,7 @@ class PlayerControlWidget extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(
-                        color: cs.outline.withValues(alpha: 0.1),
+                        color: cs.outline.withOpacity(0.1),
                         width: 0.5,
                       ),
                     ),
@@ -221,7 +221,7 @@ Widget _ctrlBtn({
     splashRadius: 22,
     constraints: const BoxConstraints(minWidth: 44, minHeight: 44),
     style: IconButton.styleFrom(
-      backgroundColor: cs.surfaceContainerHighest.withValues(alpha: 0.4),
+      backgroundColor: cs.surfaceContainerHighest.withOpacity(0.4),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(14),
       ),
@@ -238,18 +238,18 @@ Widget _secBtn({
   Color? customColor,
 }) {
   final color = customColor ??
-      (active ? cs.onSurface : cs.onSurface.withValues(alpha: 0.4));
+      (active ? cs.onSurface : cs.onSurface.withOpacity(0.4));
   return AnimatedContainer(
     duration: const Duration(milliseconds: 200),
     decoration: BoxDecoration(
       color: active
-          ? cs.primaryContainer.withValues(alpha: 0.3)
+          ? cs.primaryContainer.withOpacity(0.3)
           : Colors.transparent,
       borderRadius: BorderRadius.circular(12),
       border: Border.all(
         color: active
-            ? cs.primary.withValues(alpha: 0.2)
-            : cs.outline.withValues(alpha: 0.08),
+            ? cs.primary.withOpacity(0.2)
+            : cs.outline.withOpacity(0.08),
         width: 0.5,
       ),
     ),

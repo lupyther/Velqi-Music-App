@@ -135,10 +135,10 @@ class _WelcomeStepState extends State<_WelcomeStep>
                 width: 60,
                 height: 60,
                 decoration: BoxDecoration(
-                  color: cs.onSurface.withValues(alpha: 0.06),
+                  color: cs.onSurface.withOpacity(0.06),
                   borderRadius: BorderRadius.circular(16),
                 ),
-                child: Icon(widget.icon, size: 30, color: cs.onSurface.withValues(alpha: 0.7)),
+                child: Icon(widget.icon, size: 30, color: cs.onSurface.withOpacity(0.7)),
               ),
               const SizedBox(height: 20),
               Text(
@@ -155,7 +155,7 @@ class _WelcomeStepState extends State<_WelcomeStep>
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 13,
-                  color: cs.onSurface.withValues(alpha: 0.5),
+                  color: cs.onSurface.withOpacity(0.5),
                   height: 1.5,
                 ),
               ),
@@ -167,9 +167,9 @@ class _WelcomeStepState extends State<_WelcomeStep>
                     borderRadius: BorderRadius.circular(4),
                     child: LinearProgressIndicator(
                       minHeight: 3,
-                      backgroundColor: cs.onSurface.withValues(alpha: 0.08),
+                      backgroundColor: cs.onSurface.withOpacity(0.08),
                       valueColor: AlwaysStoppedAnimation<Color>(
-                        cs.onSurface.withValues(alpha: 0.4),
+                        cs.onSurface.withOpacity(0.4),
                       ),
                     ),
                   ),
@@ -180,7 +180,7 @@ class _WelcomeStepState extends State<_WelcomeStep>
                   height: 20,
                   child: CircularProgressIndicator(
                     strokeWidth: 2,
-                    color: cs.onSurface.withValues(alpha: 0.4),
+                    color: cs.onSurface.withOpacity(0.4),
                   ),
                 )
               else
@@ -189,7 +189,7 @@ class _WelcomeStepState extends State<_WelcomeStep>
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
-                    color: cs.onSurface.withValues(alpha: 0.7),
+                    color: cs.onSurface.withOpacity(0.7),
                   ),
                 ),
             ],

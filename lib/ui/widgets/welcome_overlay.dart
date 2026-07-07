@@ -117,7 +117,7 @@ class _WelcomeOverlayState extends State<WelcomeOverlay>
                     child: Icon(
                       Icons.music_note_rounded,
                       size: 36,
-                      color: cs.onSurface.withValues(alpha: 0.8),
+                      color: cs.onSurface.withOpacity(0.8),
                     ),
                   ),
                   const SizedBox(height: 32),
@@ -138,7 +138,7 @@ class _WelcomeOverlayState extends State<WelcomeOverlay>
                         Icon(
                           step.icon,
                           size: 40,
-                          color: cs.onSurface.withValues(alpha: 0.7),
+                          color: cs.onSurface.withOpacity(0.7),
                         ),
                         const SizedBox(height: 16),
                         Text(
@@ -155,7 +155,7 @@ class _WelcomeOverlayState extends State<WelcomeOverlay>
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 13,
-                            color: cs.onSurface.withValues(alpha: 0.5),
+                            color: cs.onSurface.withOpacity(0.5),
                             height: 1.5,
                           ),
                         ),
@@ -170,9 +170,9 @@ class _WelcomeOverlayState extends State<WelcomeOverlay>
                       child: LinearProgressIndicator(
                         value: (_currentStep + 1) / _steps.length,
                         minHeight: 3,
-                        backgroundColor: cs.onSurface.withValues(alpha: 0.08),
+                        backgroundColor: cs.onSurface.withOpacity(0.08),
                         valueColor: AlwaysStoppedAnimation<Color>(
-                          cs.onSurface.withValues(alpha: 0.4),
+                          cs.onSurface.withOpacity(0.4),
                         ),
                       ),
                     ),

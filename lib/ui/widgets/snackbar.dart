@@ -22,10 +22,10 @@ SnackBar snackbar(BuildContext context, String text,
       decoration: BoxDecoration(
         color: cs.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: cs.outline.withValues(alpha: 0.08), width: 0.5),
+        border: Border.all(color: cs.outline.withOpacity(0.08), width: 0.5),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.12),
+            color: Colors.black.withOpacity(0.12),
             blurRadius: 12,
             offset: const Offset(0, 4),
           ),

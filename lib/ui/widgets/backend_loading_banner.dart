@@ -77,8 +77,8 @@ class _BackendLoadingBannerState extends State<BackendLoadingBanner>
           border: Border(
             bottom: BorderSide(
               color: _ready
-                  ? Colors.greenAccent.withValues(alpha: 0.3)
-                  : cs.onSurface.withValues(alpha: 0.08),
+                  ? Colors.greenAccent.withOpacity(0.3)
+                  : cs.onSurface.withOpacity(0.08),
               width: 1,
             ),
           ),
@@ -93,7 +93,7 @@ class _BackendLoadingBannerState extends State<BackendLoadingBanner>
                       size: 16, color: Colors.greenAccent)
                   : CircularProgressIndicator(
                       strokeWidth: 2,
-                      color: cs.onSurface.withValues(alpha: 0.5),
+                      color: cs.onSurface.withOpacity(0.5),
                     ),
             ),
             const SizedBox(width: 10),
@@ -101,7 +101,7 @@ class _BackendLoadingBannerState extends State<BackendLoadingBanner>
               child: Text(
                 _ready ? 'Velqi listo' : 'Inicializando motor de audio...',
                 style: TextStyle(
-                  color: cs.onSurface.withValues(alpha: _ready ? 0.7 : 0.5),
+                  color: cs.onSurface.withOpacity(_ready ? 0.7 : 0.5),
                   fontSize: 13,
                   fontWeight: FontWeight.w500,
                 ),

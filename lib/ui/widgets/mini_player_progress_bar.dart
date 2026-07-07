@@ -48,7 +48,7 @@ class _ProgressBarPainter extends CustomPainter {
     final centerY = size.height / 2;
 
     final bgPaint = Paint()
-      ..color = Colors.white.withValues(alpha: 0.06)
+      ..color = Colors.white.withOpacity(0.06)
       ..strokeWidth = 3
       ..strokeCap = StrokeCap.round;
 
