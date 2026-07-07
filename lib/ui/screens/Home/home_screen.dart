@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../Search/components/desktop_search_bar.dart';
 import '/ui/screens/Search/search_screen_controller.dart';
 import '/ui/widgets/animated_screen_transition.dart';
+import '/ui/widgets/velqi_mascot.dart';
 import '../Library/library_combined.dart';
 import '../../widgets/side_nav_bar.dart';
 import '../Library/library.dart';
@@ -149,43 +150,13 @@ class Body extends StatelessWidget {
                               ),
                             ),
                             Expanded(
-                              child: Center(
-                                child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        "networkError1".tr,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleMedium,
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 15, vertical: 10),
-                                        decoration: BoxDecoration(
-                                            color: Theme.of(context)
-                                                .textTheme
-                                                .titleLarge!
-                                                .color,
-                                            borderRadius:
-                                                BorderRadius.circular(10)),
-                                        child: InkWell(
-                                          onTap: () {
-                                            homeScreenController
-                                                .loadContentFromNetwork();
-                                          },
-                                          child: Text(
-                                            "retry".tr,
-                                            style: TextStyle(
-                                                color: Theme.of(context)
-                                                    .canvasColor),
-                                          ),
-                                        ),
-                                      ),
-                                    ]),
+                              child: VelqiErrorState(
+                                message: "networkError1".tr,
+                                onRetry: () {
+                                  homeScreenController
+                                      .loadContentFromNetwork();
+                                },
+                                mascotSize: 140,
                               ),
                             )
                           ],

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import 'components/search_item.dart';
 import '/ui/screens/Settings/settings_screen_controller.dart';
+import '/ui/widgets/velqi_mascot.dart';
 import '../../widgets/modified_text_field.dart';
 import '/ui/navigator.dart';
 import 'search_screen_controller.dart';
@@ -129,6 +130,13 @@ class SearchScreen extends StatelessWidget {
                         final list = isEmpty
                             ? searchScreenController.historyQuerylist.toList()
                             : searchScreenController.suggestionList.toList();
+                        if (isEmpty && list.isEmpty) {
+                          return const VelqiMascot(
+                            pose: VelqiPose.headphones,
+                            size: 140,
+                            customText: 'Busca tu música favorita',
+                          );
+                        }
                         return ListView(
                           padding: const EdgeInsets.only(top: 4, bottom: 400),
                           physics: const BouncingScrollPhysics(

@@ -269,22 +269,22 @@ class _SplashScreenState extends State<SplashScreen>
 
   Widget _buildLogo() {
     return Container(
-      width: 220,
-      height: 220,
+      width: 240,
+      height: 240,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(40),
+        borderRadius: BorderRadius.circular(48),
         boxShadow: const [
           BoxShadow(
-            color: Color(0x28FFFFFF),
-            blurRadius: 60,
-            spreadRadius: 8,
+            color: Color(0x30FFFFFF),
+            blurRadius: 80,
+            spreadRadius: 12,
           ),
         ],
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(40),
+        borderRadius: BorderRadius.circular(48),
         child: Image.asset(
-          'assets/velqi.png',
+          'assets/velqi_splash.png',
           fit: BoxFit.cover,
           filterQuality: FilterQuality.high,
           errorBuilder: (_, __, ___) => Container(

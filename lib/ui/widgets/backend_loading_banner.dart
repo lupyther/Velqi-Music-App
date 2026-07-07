@@ -86,14 +86,18 @@ class _BackendLoadingBannerState extends State<BackendLoadingBanner>
         child: Row(
           children: [
             SizedBox(
-              width: 16,
-              height: 16,
+              width: 20,
+              height: 20,
               child: _ready
                   ? Icon(Icons.check_circle_rounded,
                       size: 16, color: Colors.greenAccent)
-                  : CircularProgressIndicator(
-                      strokeWidth: 2,
-                      color: cs.onSurface.withOpacity(0.5),
+                  : Image.asset(
+                      'assets/velqi_headphones.png',
+                      fit: BoxFit.contain,
+                      errorBuilder: (_, __, ___) => CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: cs.onSurface.withOpacity(0.5),
+                      ),
                     ),
             ),
             const SizedBox(width: 10),

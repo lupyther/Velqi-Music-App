@@ -731,15 +731,13 @@ class SettingsScreen extends StatelessWidget {
                             borderRadius:
                                 BorderRadius.circular(20),
                             child: Image.asset(
-                              'assets/velqi.png',
+                              'assets/velqi_guitar.png',
                               width: 140,
                               height: 140,
                               fit: BoxFit.contain,
                               filterQuality: FilterQuality.high,
                               color: Theme.of(context).brightness ==
                                       Brightness.light
-                                  // tinta el PNG blanco a negro en tema claro
-                                  // (colorFilter multiplica blanco→colorDestino)
                                   ? Colors.black.withAlpha(230)
                                   : null,
                               colorBlendMode: BlendMode.srcIn,
@@ -754,12 +752,26 @@ class SettingsScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 6),
                           Text(
-                            "by @lupyther",
+                            "Programado por @lupyther",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium
                                 ?.copyWith(
                                   letterSpacing: 0.3,
+                                ),
+                          ),
+                          const SizedBox(height: 2),
+                          Text(
+                            "Diseños por @Runix",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall
+                                ?.copyWith(
+                                  letterSpacing: 0.3,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSurface
+                                      .withOpacity(0.6),
                                 ),
                           ),
 

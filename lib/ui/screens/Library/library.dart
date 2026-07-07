@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '/ui/widgets/modification_list.dart';
+import '/ui/widgets/velqi_mascot.dart';
 import '../../../models/playlist.dart';
 import 'library_controller.dart';
 import '../../widgets/content_list_widget_item.dart';
@@ -79,12 +80,11 @@ class SongsLibraryWidget extends StatelessWidget {
                         mode: controller.additionalOperationMode.value,
                         screenController: controller,
                       ))
-                : Expanded(
-                    child: Center(
-                        child: Text(
-                      "noOfflineSong".tr,
-                      style: Theme.of(context).textTheme.titleMedium,
-                    )),
+                : const Expanded(
+                    child: VelqiEmptyState(
+                      message: 'No hay canciones guardadas',
+                      mascotSize: 120,
+                    ),
                   );
           })
         ],
@@ -211,11 +211,12 @@ class PlaylistNAlbumLibraryWidget extends StatelessWidget {
                                 )),
                       );
                     })
-                  : Center(
-                      child: Text(
-                      "noBookmarks".tr,
-                      style: Theme.of(context).textTheme.titleMedium,
-                    )),
+                  : const Center(
+                      child: VelqiEmptyState(
+                        message: 'No hay álbumes o playlists guardados',
+                        mascotSize: 120,
+                      ),
+                    ),
             ),
           )
         ],
@@ -266,12 +267,12 @@ class LibraryArtistWidget extends StatelessWidget {
           ),
           Obx(() => cntrller.libraryArtists.isNotEmpty
               ? ListWidget(cntrller.libraryArtists, "Library Artists", true)
-              : Expanded(
-                  child: Center(
-                      child: Text(
-                  "noBookmarks".tr,
-                  style: Theme.of(context).textTheme.titleMedium,
-                ))))
+              : const Expanded(
+                  child: VelqiEmptyState(
+                    message: 'No hay artistas guardados',
+                    mascotSize: 120,
+                  ),
+                ))
         ],
       ),
     );
