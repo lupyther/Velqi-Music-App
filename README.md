@@ -53,14 +53,6 @@ Velqi está disponible en **50 idiomas**. Si quieres ayudar a mejorar o agregar 
 
 ### Descarga
 
-Elige el APK que coincida con la arquitectura de tu dispositivo:
-
-| Dispositivo | APK | Tamaño |
-|---|---|---|
-| Teléfonos modernos (2018+) | `Velqi-1.0.0-arm64-v8a.apk` | ~24 MB |
-| Teléfonos viejos | `Velqi-1.0.0-armeabi-v7a.apk` | ~23 MB |
-| Emuladores (BlueStacks, etc.) | `Velqi-1.0.0-x86_64.apk` | ~25 MB |
-
 <div align="center">
 
 <a href="https://github.com/lupyther/Velqi-Music-App/releases/latest"><img src="badge_github.png" width="250" alt="Descargar en GitHub"/></a>
