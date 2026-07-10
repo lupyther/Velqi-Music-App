@@ -2,7 +2,6 @@ import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:velqi/ui/screens/Settings/settings_screen_controller.dart';
-import 'package:ionicons/ionicons.dart';
 
 import '/ui/widgets/lyrics_dialog.dart';
 import '/ui/widgets/song_info_dialog.dart';
@@ -242,7 +241,7 @@ class MiniPlayer extends StatelessWidget {
           onPressed: pc.toggleFavourite, cs: cs,
         ),
         const SizedBox(width: 4),
-        _iconBtn(icon: Ionicons.shuffle, iconSize: 20,
+        _iconBtn(icon: Icons.shuffle, iconSize: 20,
           onPressed: pc.toggleShuffleMode, cs: cs,
           faded: !pc.isShuffleModeEnabled.value,
         ),
