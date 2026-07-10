@@ -70,8 +70,6 @@ const navigation_browse_id = [
   'browseId'
 ];
 
-const text_run_navigation_browse_id = [];
-
 const subtitle_badge_label = [
   'subtitleBadges',
   0,

@@ -52,8 +52,6 @@ class PlayerController extends GetxController
       .obs;
 
   final currentSongIndex = (0).obs;
-  final isFirstSong = true;
-  final isLastSong = true;
   final isQueueLoopModeEnabled = false.obs;
   final isLoopModeEnabled = false.obs;
   final isShuffleModeEnabled = false.obs;

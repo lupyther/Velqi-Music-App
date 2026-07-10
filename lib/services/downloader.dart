@@ -19,7 +19,6 @@ import '/utils/helper.dart';
 import '/models/media_Item_builder.dart';
 import '../ui/screens/Library/library_controller.dart';
 import 'music_service.dart';
-//import '../models/thumbnail.dart' as th;
 
 class Downloader extends GetxService {
   final _dio = Dio();

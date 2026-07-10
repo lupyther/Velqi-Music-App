@@ -59,7 +59,14 @@ Velqi está disponible en **50 idiomas**. Si quieres ayudar a mejorar o agregar 
 
 </div>
 
-> Si no sabes cuál elegir, descarga `Velqi-1.0.0-arm64-v8a.apk`.
+> Si no sabes cuál elegir, descarga `Velqi-1.2.0-arm64-v8a.apk`.
+
+### Cambios recientes (v1.2.0)
+
+- **Caché de canciones desactivada por defecto** — Ya no se descargan automáticamente canciones al reproducir. Puedes activarla en Ajustes → Música y reproducción.
+- **Corrección de memory leak** — Se corrigió una fuga de memoria en el manejo de caché de canciones.
+- **Mejoras en manejo de errores** — Los errores ahora se registran en lugar de silenciarse.
+- **Limpieza de código** — Se eliminaron archivos y código muerto sin uso.
 
 ### Solución de problemas
 
@@ -135,9 +142,9 @@ Choose the APK that matches your device architecture:
 
 | Device Type | APK | Size |
 |---|---|---|
-| Modern phones (2018+) | `Velqi-1.0.0-arm64-v8a.apk` | ~24 MB |
-| Older phones | `Velqi-1.0.0-armeabi-v7a.apk` | ~23 MB |
-| Emulators (BlueStacks, etc.) | `Velqi-1.0.0-x86_64.apk` | ~25 MB |
+| Modern phones (2018+) | `Velqi-1.2.0-arm64-v8a.apk` | ~25 MB |
+| Older phones | `Velqi-1.2.0-armeabi-v7a.apk` | ~24 MB |
+| Emulators (BlueStacks, etc.) | `Velqi-1.2.0-x86_64.apk` | ~25 MB |
 
 <div align="center">
 
@@ -145,7 +152,14 @@ Choose the APK that matches your device architecture:
 
 </div>
 
-> If you're unsure which APK to pick, download `Velqi-1.0.0-arm64-v8a.apk`.
+> If you're unsure which APK to pick, download `Velqi-1.2.0-arm64-v8a.apk`.
+
+### Recent changes (v1.2.0)
+
+- **Song caching disabled by default** — Songs are no longer automatically downloaded while playing. You can enable it in Settings → Music and playback.
+- **Memory leak fix** — Fixed a memory leak in song cache handling.
+- **Better error handling** — Errors are now logged instead of being silently ignored.
+- **Code cleanup** — Removed unused files and dead code.
 
 ### Troubleshooting
 
