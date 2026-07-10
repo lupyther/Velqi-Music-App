@@ -22,6 +22,7 @@ import 'ui/screens/Home/home_screen_controller.dart';
 import 'ui/screens/Library/library_controller.dart';
 import 'utils/system_tray.dart';
 import 'utils/update_check_flag_file.dart';
+import '/services/permission_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,6 +34,7 @@ Future<void> main() async {
   BackendService.instance.start();
   startApplicationServices();
   Get.put<AudioHandler>(await initAudioService(), permanent: true);
+  PermissionService.getNotificationPermission();
   WidgetsBinding.instance.addObserver(LifecycleHandler());
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   TerminateRestart.instance.initialize();

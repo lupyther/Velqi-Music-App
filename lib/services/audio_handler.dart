@@ -35,7 +35,7 @@ Future<AudioHandler> initAudioService() async {
     builder: () => MyAudioHandler(),
     config: const AudioServiceConfig(
       androidNotificationIcon: 'mipmap/velqi_notification',
-      androidNotificationChannelId: 'com.mycompany.myapp.audio',
+      androidNotificationChannelId: 'com.velqi.app.audio',
       androidNotificationChannelName: 'Velqi Notification',
       androidNotificationOngoing: true,
       androidStopForegroundOnPause: true,

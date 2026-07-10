@@ -29,4 +29,21 @@ class PermissionService {
       return true;
     }
   }
+
+  static Future<bool> getNotificationPermission() async {
+    if (GetPlatform.isDesktop) {
+      return Future.value(true);
+    }
+    if ((SDKInt.Companion.getSDKInt()) >= 33) {
+      var status = await Permission.notification.status;
+      if (status.isDenied) {
+        status = await Permission.notification.request();
+      }
+      if (status.isPermanentlyDenied) {
+        await openAppSettings();
+      }
+      return status.isGranted;
+    }
+    return true;
+  }
 }
