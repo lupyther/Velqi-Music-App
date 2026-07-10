@@ -125,7 +125,7 @@ void _setAppInitPrefs() {
   if (appPrefs.isEmpty) {
     appPrefs.putAll({
       'themeModeType': 2, // dark by default
-      "cacheSongs": true,
+      "cacheSongs": false,
       "skipSilenceEnabled": false,
       'streamingQuality': 1,
       'themePrimaryColor': 0xFF7C3AED, // Velqi violet

@@ -682,8 +682,9 @@ class PlayerController extends GetxController
           : playlistController.addNRemoveItemsinList(currMediaItem,
               action: 'remove');
 
-      // ignore: empty_catches
-    } catch (e) {}
+    } catch (e) {
+      printERROR("Failed to toggle favourite: $e");
+    }
     isCurrentSongFav.value = !isCurrentSongFav.value;
     if (Get.find<SettingsScreenController>()
             .autoDownloadFavoriteSongEnabled
@@ -726,8 +727,9 @@ class PlayerController extends GetxController
         playlistController.addNRemoveItemsinList(mediaItem,
             action: 'add', index: 0);
 
-        // ignore: empty_catches
-      } catch (e) {}
+      } catch (e) {
+        printERROR("Failed to add to recently played: $e");
+      }
     }
     recentItem = mediaItem;
   }

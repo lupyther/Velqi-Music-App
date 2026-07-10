@@ -832,11 +832,11 @@ class MyAudioHandler extends BaseAudioHandler with GetxServiceMixin {
       {bool generateNewUrl = false, bool offlineReplacementUrl = false}) async {
     printINFO("Requested id : $songId");
     final songDownloadsBox = Hive.box("SongDownloads");
-    if (!offlineReplacementUrl &&
-        (await Hive.openBox("SongsCache")).containsKey(songId)) {
+    final songsCacheBox = Hive.box("SongsCache");
+    if (!offlineReplacementUrl && songsCacheBox.containsKey(songId)) {
       printINFO("Got Song from cachedbox ($songId)");
       // if contains stream Info
-      final streamInfo = Hive.box("SongsCache").get(songId)["streamInfo"];
+      final streamInfo = songsCacheBox.get(songId)["streamInfo"];
       Audio? cacheAudioPlaceholder;
       if (streamInfo != null && streamInfo.isNotEmpty) {
         streamInfo[1]['url'] = "file://$_cacheDir/cachedSongs/$songId.mp3";
@@ -1001,7 +1001,8 @@ class MediaLibrary {
     try {
       box = await Hive.openBox(libId);
     } catch (e) {
-      box = await Hive.openBox(libId);
+      printERROR("Failed to open box $libId: $e");
+      return [];
     }
     final songs = box.values.toList().map((e) {
       final song = MediaItemBuilder.fromJson(e);
