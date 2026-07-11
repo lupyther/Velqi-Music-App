@@ -1,6 +1,10 @@
+import 'dart:io';
+
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '/native_bindings/andrid_utils.dart' show SDKInt;
+
 class PermissionService {
   static Future<bool> getExtStoragePermission() async {
     if (GetPlatform.isDesktop) {
@@ -22,11 +26,32 @@ class PermissionService {
 
       return (await Permission.storage.status).isGranted;
     } else {
-      if (!await Permission.manageExternalStorage.isGranted) {
-        final permission = await Permission.manageExternalStorage.request();
-        return permission.isGranted;
+      // Android 11+ (SDK 30+): MANAGE_EXTERNAL_STORAGE
+      // This permission CANNOT be requested via normal dialog on Android 11+.
+      // The permission_handler .request() silently returns denied.
+      // We must open the system settings page directly.
+      if (await Permission.manageExternalStorage.isGranted) {
+        return true;
       }
-      return true;
+
+      // Try requesting via permission_handler first (may work on some devices)
+      final status = await Permission.manageExternalStorage.request();
+      if (status.isGranted) return true;
+
+      // If denied/permanently denied, open the "All files access" settings page
+      if (Platform.isAndroid) {
+        const channel = MethodChannel('com.velqi.app/storage_settings');
+        try {
+          await channel.invokeMethod('openStorageSettings');
+        } catch (_) {
+          // Fallback: open generic app settings
+          await openAppSettings();
+        }
+        // IMPORTANT: Don't check permission immediately after opening settings!
+        // The user hasn't had a chance to grant it yet.
+        // Return false and let the caller guide the user.
+      }
+      return false;
     }
   }
 

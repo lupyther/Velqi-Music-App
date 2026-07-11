@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:velqi/ui/screens/Settings/settings_screen_controller.dart';
 import 'package:velqi/ui/widgets/loader.dart';
+import 'package:velqi/utils/helper.dart';
 
 import '../../services/permission_service.dart';
+import '../widgets/snackbar.dart';
 import 'common_dialog_widget.dart';
 
 class ExportFileDialog extends StatelessWidget {
@@ -142,21 +144,76 @@ class ExportFileDialogController extends GetxController {
   Future<void> export() async {
     if (GetPlatform.isAndroid) {
       if (!await PermissionService.getExtStoragePermission()) {
+        if (Get.context != null) {
+          ScaffoldMessenger.of(Get.context!).showSnackBar(snackbar(
+              Get.context!,
+              "Permiso de almacenamiento requerido. Ve a Ajustes → 'Permitir acceso a todos los archivos' → Actívalo.",
+              size: SanckBarSize.BIG,
+              duration: const Duration(seconds: 4),
+              top: true));
+        }
         return;
       }
+    }
+
+    if (filesToExport.isEmpty) {
+      if (Get.context != null) {
+        ScaffoldMessenger.of(Get.context!).showSnackBar(snackbar(
+            Get.context!, "No hay archivos descargados para exportar.",
+            size: SanckBarSize.BIG,
+            duration: const Duration(seconds: 2),
+            top: true));
+      }
+      return;
     }
 
     exportProgress.value = 0;
     exportRunning.value = true;
     final exportDirPath =
         Get.find<SettingsScreenController>().exportLocationPath.toString();
+
+    // Show the export destination to the user
+    printINFO("Exporting files to: $exportDirPath");
+
+    // Create export directory if it doesn't exist
+    try {
+      final exportDir = Directory(exportDirPath);
+      if (!await exportDir.exists()) {
+        await exportDir.create(recursive: true);
+      }
+    } catch (e) {
+      if (Get.context != null) {
+        ScaffoldMessenger.of(Get.context!).showSnackBar(snackbar(
+            Get.context!, "No se pudo crear la carpeta de exportación: $e\nVerifica el permiso 'Acceso a todos los archivos' en Ajustes.",
+            size: SanckBarSize.BIG,
+            duration: const Duration(seconds: 4),
+            top: true));
+      }
+      exportRunning.value = false;
+      return;
+    }
+
     final length_ = filesToExport.length;
     for (int i = 0; i < length_; i++) {
-      final filePath = filesToExport[i];
-      final newFilePath = "$exportDirPath/${filePath.split(Platform.isWindows ? '\\' : '/').last}";
-      await File(filePath).copy(newFilePath);
-      exportProgress.value = i + 1;
+      try {
+        final filePath = filesToExport[i];
+        final fileName = filePath.split(Platform.isWindows ? '\\' : '/').last;
+        final newFilePath = "$exportDirPath/$fileName";
+        await File(filePath).copy(newFilePath);
+        exportProgress.value = i + 1;
+        printINFO("Exported: $fileName → $exportDirPath");
+      } catch (e) {
+        if (Get.context != null) {
+          ScaffoldMessenger.of(Get.context!).showSnackBar(snackbar(
+              Get.context!, "Error al exportar archivo: $e",
+              size: SanckBarSize.BIG,
+              duration: const Duration(seconds: 2),
+              top: true));
+        }
+        printERROR("Export failed for ${filesToExport[i]}: $e");
+      }
     }
     exportRunning.value = false;
+    printINFO("Export completed: ${exportProgress.value}/$length_ files");
   }
 }

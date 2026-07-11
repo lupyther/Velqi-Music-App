@@ -15,6 +15,7 @@ import '/ui/player/player_controller.dart';
 import '../Home/home_screen_controller.dart';
 import '/ui/utils/theme_controller.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
+import '/ui/widgets/snackbar.dart';
 
 class SettingsScreenController extends GetxController {
   late String _supportDir;
@@ -43,7 +44,7 @@ class SettingsScreenController extends GetxController {
   final restorePlaybackSession = false.obs;
   final cacheHomeScreenData = true.obs;
   final fastMode = false.obs;
-  final currentVersion = "V1.2.0";
+  final currentVersion = "V1.2.1";
 
   // ── YouTube Cookies ────────────────────────────────────────────────────────
   final cookiesActive = false.obs;
@@ -114,8 +115,12 @@ class SettingsScreenController extends GetxController {
             ? await _createInAppSongDownDir()
             : downloadPath;
 
+    // Default export path: user-accessible Downloads/Velqi folder
+    final defaultExportPath = GetPlatform.isAndroid
+        ? "/storage/emulated/0/Download/Velqi"
+        : _supportDir;
     exportLocationPath.value =
-        setBox.get("exportLocationPath") ?? _supportDir;
+        setBox.get("exportLocationPath") ?? defaultExportPath;
     downloadingFormat.value = setBox.get('downloadingFormat') ?? "m4a";
     slidableActionEnabled.value = setBox.get('slidableActionEnabled') ?? true;
     stopPlyabackOnSwipeAway.value =
@@ -229,6 +234,16 @@ class SettingsScreenController extends GetxController {
   Future<void> setExportedLocation() async {
     if (GetPlatform.isAndroid) {
       if (!await PermissionService.getExtStoragePermission()) {
+        // Permission was denied — settings page was opened.
+        // Show a clear message so the user knows what to do.
+        if (Get.context != null) {
+          ScaffoldMessenger.of(Get.context!).showSnackBar(snackbar(
+              Get.context!,
+              "Ve a Ajustes → 'Permitir acceso a todos los archivos' → Actívalo, luego vuelve y toca esta opción de nuevo.",
+              size: SanckBarSize.BIG,
+              duration: const Duration(seconds: 5),
+              top: true));
+        }
         return;
       }
     }
@@ -241,6 +256,14 @@ class SettingsScreenController extends GetxController {
 
     setBox.put("exportLocationPath", pickedFolderPath);
     exportLocationPath.value = pickedFolderPath;
+
+    if (Get.context != null) {
+      ScaffoldMessenger.of(Get.context!).showSnackBar(snackbar(
+          Get.context!, "Ubicación de exportación actualizada: $pickedFolderPath",
+          size: SanckBarSize.BIG,
+          duration: const Duration(seconds: 3),
+          top: true));
+    }
   }
 
   Future<void> setDownloadLocation() async {

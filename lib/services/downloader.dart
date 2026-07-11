@@ -19,6 +19,7 @@ import '/utils/helper.dart';
 import '/models/media_Item_builder.dart';
 import '../ui/screens/Library/library_controller.dart';
 import 'music_service.dart';
+import 'backend/backend_service.dart';
 
 class Downloader extends GetxService {
   final _dio = Dio();
@@ -35,23 +36,41 @@ class Downloader extends GetxService {
   Future<bool> checkPermissionNDir() async {
     final settingsScreenController = Get.find<SettingsScreenController>();
 
+    final dirPath = settingsScreenController.downloadLocationPath.string;
+    if (dirPath.isEmpty) {
+      printERROR("Download path is empty");
+      return false;
+    }
+
     if (!settingsScreenController.isCurrentPathsupportDownDir &&
         !await PermissionService.getExtStoragePermission()) {
       return false;
     }
 
-    final dirPath =
-        Get.find<SettingsScreenController>().downloadLocationPath.string;
-    final directory = Directory(dirPath);
-    if (!await directory.exists()) {
-      await directory.create(recursive: true);
+    try {
+      final directory = Directory(dirPath);
+      if (!await directory.exists()) {
+        await directory.create(recursive: true);
+      }
+    } catch (e) {
+      printERROR("Failed to create download directory: $e");
+      return false;
     }
     return true;
   }
 
   Future<void> downloadPlaylist(
       String playlistId, List<MediaItem> songList) async {
-    if (!(await checkPermissionNDir())) return;
+    if (!(await checkPermissionNDir())) {
+      if (Get.context != null) {
+        ScaffoldMessenger.of(Get.context!).showSnackBar(snackbar(
+            Get.context!, "Storage permission is required to download songs. Please grant 'All files access' in Settings.",
+            size: SanckBarSize.BIG,
+            duration: const Duration(seconds: 3),
+            top: !GetPlatform.isDesktop));
+      }
+      return;
+    }
 
     // for toggle between downloading request & cancelling
     if (playlistQueue.containsKey(playlistId)) {
@@ -69,7 +88,16 @@ class Downloader extends GetxService {
   }
 
   Future<void> download(MediaItem? song, {List<MediaItem>? songList}) async {
-    if (!(await checkPermissionNDir())) return;
+    if (!(await checkPermissionNDir())) {
+      if (Get.context != null) {
+        ScaffoldMessenger.of(Get.context!).showSnackBar(snackbar(
+            Get.context!, "Storage permission is required to download songs. Please grant 'All files access' in Settings.",
+            size: SanckBarSize.BIG,
+            duration: const Duration(seconds: 3),
+            top: !GetPlatform.isDesktop));
+      }
+      return;
+    }
     if (songList != null) {
       songQueue.addAll(songList);
     } else {
@@ -154,37 +182,60 @@ class Downloader extends GetxService {
     final settingsScreenController = Get.find<SettingsScreenController>();
     final downloadingFormat = settingsScreenController.downloadingFormat.string;
 
+    // Ensure the Python backend is ready before fetching stream
+    await BackendService.instance.ensureReady();
+
     final playerResponse = await StreamProvider.fetch(song.id);
-    // if (!playerResponse.playable) {
-    //   printINFO("Network error! Check your network connection.");
-    //   ScaffoldMessenger.of(Get.context!).showSnackBar(snackbar(
-    //       Get.context!, playerResponse.statusMSG,
-    //       size: SanckBarSize.BIG,
-    //       duration: const Duration(seconds: 2),
-    //       top: !GetPlatform.isDesktop));
-    //   complete.complete();
-    //   return complete.future;
-    // }
 
     if (!playerResponse.playable) {
-      ScaffoldMessenger.of(Get.context!).showSnackBar(snackbar(
-          Get.context!,
-          playerResponse.statusMSG == "networkError"
-              ? playerResponse.statusMSG.tr
-              : playerResponse.statusMSG,
-          size: SanckBarSize.BIG,
-          duration: const Duration(seconds: 2),
-          top: !GetPlatform.isDesktop));
+      if (Get.context != null) {
+        ScaffoldMessenger.of(Get.context!).showSnackBar(snackbar(
+            Get.context!,
+            playerResponse.statusMSG == "networkError"
+                ? playerResponse.statusMSG.tr
+                : playerResponse.statusMSG,
+            size: SanckBarSize.BIG,
+            duration: const Duration(seconds: 2),
+            top: !GetPlatform.isDesktop));
+      }
       printINFO("Requested song is not downloadable. You may try again");
       complete.complete();
       return complete.future;
     }
 
-    Audio requiredAudioStream = downloadingFormat == "opus"
-        ? playerResponse.highestBitrateOpusAudio!
-        : playerResponse.highestBitrateMp4aAudio!;
+    // Guard against empty audio formats
+    if (playerResponse.audioFormats == null || playerResponse.audioFormats!.isEmpty) {
+      printERROR("No audio formats available for download");
+      if (Get.context != null) {
+        ScaffoldMessenger.of(Get.context!).showSnackBar(snackbar(
+            Get.context!, "downloadError3".tr,
+            size: SanckBarSize.BIG,
+            duration: const Duration(seconds: 2),
+            top: !GetPlatform.isDesktop));
+      }
+      complete.complete();
+      return complete.future;
+    }
+
+    Audio? requiredAudioStream = downloadingFormat == "opus"
+        ? playerResponse.highestBitrateOpusAudio
+        : playerResponse.highestBitrateMp4aAudio;
+
+    // Fallback: try any available format
+    requiredAudioStream ??= playerResponse.highestQualityAudio;
+    if (requiredAudioStream == null) {
+      printERROR("Failed to select audio format for download");
+      complete.complete();
+      return complete.future;
+    }
 
     final dirPath = settingsScreenController.downloadLocationPath.string;
+    if (dirPath.isEmpty) {
+      printERROR("Download path is empty");
+      complete.complete();
+      return complete.future;
+    }
+
     final actualDownformat =
         requiredAudioStream.audioCodec.name.contains("mp") ? "m4a" : "opus";
     final RegExp invalidChar =
@@ -193,14 +244,27 @@ class Downloader extends GetxService {
         .replaceAll(invalidChar, "");
     String filePath = "$dirPath/$songTitle.$actualDownformat";
     printINFO("Downloading filePath: $filePath");
+
+    // YouTube URLs may not provide filesize; use 0 as fallback
     final totalBytes = requiredAudioStream.size;
 
     _dio.download(
         requiredAudioStream.url,
-        options: Options(headers: {"Range": 'bytes=0-$totalBytes'}),
-        filePath, onReceiveProgress: (count, total) {
-      if (total <= 0) return;
-      songDownloadingProgress.value = ((count / total) * 100).toInt();
+        filePath,
+        options: Options(
+          headers: {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36",
+          },
+        ),
+        onReceiveProgress: (count, total) {
+      // Use Content-Length header as fallback when total is 0 or -1
+      final effectiveTotal = total > 0 ? total : totalBytes;
+      if (effectiveTotal <= 0) {
+        // If we still don't know the total, show indeterminate progress
+        songDownloadingProgress.value = -1;
+        return;
+      }
+      songDownloadingProgress.value = ((count / effectiveTotal) * 100).toInt();
     }).then(
       (value) async {
         printINFO(value.data);
@@ -227,7 +291,7 @@ class Downloader extends GetxService {
 
         song.extras?['url'] = filePath;
         final songJson = MediaItemBuilder.toJson(song);
-        final streamInfoJson = requiredAudioStream.toJson();
+        final streamInfoJson = requiredAudioStream!.toJson();
         streamInfoJson['url'] = filePath;
         // [playbility status, info map]
         songJson["streamInfo"] = [true, streamInfoJson];
