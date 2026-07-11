@@ -59,13 +59,16 @@ Velqi está disponible en **50 idiomas**. Si quieres ayudar a mejorar o agregar 
 
 </div>
 
-> Si no sabes cuál elegir, descarga `Velqi-1.2.0-arm64-v8a.apk`.
+> Si no sabes cuál elegir, descarga `Velqi-1.2.1-arm64-v8a.apk`.
 
-### Cambios recientes (v1.2.0)
+### Cambios recientes (v1.2.1)
 
+- **Exportar música al dispositivo corregido** — Se corrigió el permiso de almacenamiento en Android 11+ que impedía exportar canciones. Ahora abre la página de ajustes "Acceso a todos los archivos" automáticamente.
+- **Notificaciones corregidas** — Se corrigió el ID del canal de notificaciones y se agregó el permiso `POST_NOTIFICATIONS` para Android 13+.
 - **Caché de canciones desactivada por defecto** — Ya no se descargan automáticamente canciones al reproducir. Puedes activarla en Ajustes → Música y reproducción.
 - **Corrección de memory leak** — Se corrigió una fuga de memoria en el manejo de caché de canciones.
-- **Mejoras en manejo de errores** — Los errores ahora se registran en lugar de silenciarse.
+- **Mejoras en descarga** — Se agregó verificación de backend antes de descargar, corrección de parámetros Dio, y null safety.
+- **Mejoras en manejo de errores** — Los errores ahora se registran y muestran mensajes al usuario.
 - **Limpieza de código** — Se eliminaron archivos y código muerto sin uso.
 
 ### Solución de problemas
@@ -142,9 +145,9 @@ Choose the APK that matches your device architecture:
 
 | Device Type | APK | Size |
 |---|---|---|
-| Modern phones (2018+) | `Velqi-1.2.0-arm64-v8a.apk` | ~25 MB |
-| Older phones | `Velqi-1.2.0-armeabi-v7a.apk` | ~24 MB |
-| Emulators (BlueStacks, etc.) | `Velqi-1.2.0-x86_64.apk` | ~25 MB |
+| Modern phones (2018+) | `Velqi-1.2.1-arm64-v8a.apk` | ~25 MB |
+| Older phones | `Velqi-1.2.1-armeabi-v7a.apk` | ~24 MB |
+| Emulators (BlueStacks, etc.) | `Velqi-1.2.1-x86_64.apk` | ~25 MB |
 
 <div align="center">
 
@@ -152,13 +155,16 @@ Choose the APK that matches your device architecture:
 
 </div>
 
-> If you're unsure which APK to pick, download `Velqi-1.2.0-arm64-v8a.apk`.
+> If you're unsure which APK to pick, download `Velqi-1.2.1-arm64-v8a.apk`.
 
-### Recent changes (v1.2.0)
+### Recent changes (v1.2.1)
 
+- **Export music to device fixed** — Fixed storage permission on Android 11+ that prevented exporting songs. Now opens "All files access" settings page automatically.
+- **Notifications fixed** — Fixed notification channel ID and added `POST_NOTIFICATIONS` permission for Android 13+.
 - **Song caching disabled by default** — Songs are no longer automatically downloaded while playing. You can enable it in Settings → Music and playback.
 - **Memory leak fix** — Fixed a memory leak in song cache handling.
-- **Better error handling** — Errors are now logged instead of being silently ignored.
+- **Download improvements** — Added backend readiness check, fixed Dio parameter order, and null safety.
+- **Better error handling** — Errors are now logged and shown to the user.
 - **Code cleanup** — Removed unused files and dead code.
 
 ### Troubleshooting
