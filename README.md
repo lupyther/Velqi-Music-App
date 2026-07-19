@@ -59,12 +59,15 @@ Velqi está disponible en **50 idiomas**. Si quieres ayudar a mejorar o agregar 
 
 </div>
 
-> Si no sabes cuál elegir, descarga `Velqi-1.2.1-arm64-v8a.apk`.
+> Si no sabes cuál elegir, descarga `Velqi-1.2.2-arm64-v8a.apk`.
 
-> [!NOTE]
-> **Muy pronto — v1.2.2** 🚀 Correcciones de crasheos al reabrir la app, mejoras en la UI de ajustes y más.
+### Cambios recientes (v1.2.2)
 
-### Cambios recientes (v1.2.1)
+- **Corrección de crasheo al reabrir la app** — El backend de Python ya no intenta iniciarse dos veces.
+- **Corrección de HiveError** — Resuelto un problema de mayúsculas/minúsculas (`appPrefs` vs `AppPrefs`) que causaba errores silenciosos o crasheos.
+- **Mejoras en la UI de Ajustes** — Banner de actualización rediseñado y más visible, y nueva sección de información de la app con créditos a los creadores.
+
+### Cambios de la versión anterior (v1.2.1)
 
 - **Exportar música al dispositivo corregido** — Se corrigió el permiso de almacenamiento en Android 11+ que impedía exportar canciones. Ahora abre la página de ajustes "Acceso a todos los archivos" automáticamente.
 - **Notificaciones corregidas** — Se corrigió el ID del canal de notificaciones y se agregó el permiso `POST_NOTIFICATIONS` para Android 13+.
@@ -148,9 +151,9 @@ Choose the APK that matches your device architecture:
 
 | Device Type | APK | Size |
 |---|---|---|
-| Modern phones (2018+) | `Velqi-1.2.1-arm64-v8a.apk` | ~25 MB |
-| Older phones | `Velqi-1.2.1-armeabi-v7a.apk` | ~24 MB |
-| Emulators (BlueStacks, etc.) | `Velqi-1.2.1-x86_64.apk` | ~25 MB |
+| Modern phones (2018+) | `Velqi-1.2.2-arm64-v8a.apk` | ~25 MB |
+| Older phones | `Velqi-1.2.2-armeabi-v7a.apk` | ~24 MB |
+| Emulators (BlueStacks, etc.) | `Velqi-1.2.2-x86_64.apk` | ~26 MB |
 
 <div align="center">
 
@@ -158,12 +161,15 @@ Choose the APK that matches your device architecture:
 
 </div>
 
-> If you're unsure which APK to pick, download `Velqi-1.2.1-arm64-v8a.apk`.
+> If you're unsure which APK to pick, download `Velqi-1.2.2-arm64-v8a.apk`.
 
-> [!NOTE]
-> **Coming soon — v1.2.2** 🚀 Crash fixes when reopening the app, Settings UI improvements and more.
+### Recent changes (v1.2.2)
 
-### Recent changes (v1.2.1)
+- **Crash fix when reopening app** — The Python backend no longer tries to start twice.
+- **HiveError fix** — Resolved a case-sensitivity issue (`appPrefs` vs `AppPrefs`) that caused silent errors or crashes.
+- **Settings UI improvements** — Redesigned and more visible update banner, and new app info section with credits to creators.
+
+### Previous version changes (v1.2.1)
 
 - **Export music to device fixed** — Fixed storage permission on Android 11+ that prevented exporting songs. Now opens "All files access" settings page automatically.
 - **Notifications fixed** — Fixed notification channel ID and added `POST_NOTIFICATIONS` permission for Android 13+.
