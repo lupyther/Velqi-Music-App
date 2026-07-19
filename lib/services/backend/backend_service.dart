@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 
 import 'backend_android.dart';
 import 'backend_config.dart';
@@ -9,9 +8,6 @@ import 'backend_desktop.dart';
 import 'backend_runner.dart';
 
 /// Orchestrates the embedded Python backend lifecycle and readiness.
-///
-/// Start it once early in main(); call [ensureReady] before the first request
-/// that needs the backend (it polls /init until the Python deps finish loading).
 class BackendService {
   BackendService._();
   static final BackendService instance = BackendService._();
@@ -25,18 +21,37 @@ class BackendService {
   bool _started = false;
   bool _ready = false;
   Future<bool>? _readyFuture;
+  String? _lastError;
 
   bool get isReady => _ready;
+  String? get lastError => _lastError;
 
   Future<void> start() async {
     if (_started) return;
     _started = true;
+
+    // Check if the backend is already running (e.g. process wasn't terminated or app is restarting within the same process)
+    try {
+      final res = await _dio.get('/ping',
+          options: Options(receiveTimeout: const Duration(seconds: 1)));
+      if (res.statusCode == 200) {
+        final data = res.data is Map ? res.data : null;
+        if (data != null && data['ok'] == true) {
+          print('[BACKEND] already running, reusing existing process');
+          return;
+        }
+      }
+    } catch (_) {
+      // Not running, proceed with starting it
+    }
+
     _runner = Platform.isAndroid ? AndroidBackendRunner() : DesktopBackendRunner();
     try {
       await _runner!.start();
-      if (kDebugMode) print('[BACKEND] runner started');
+      print('[BACKEND] runner started');
     } catch (e) {
-      if (kDebugMode) print('[BACKEND] start error: $e');
+      _lastError = e.toString();
+      print('[BACKEND] start error: $e');
     }
   }
 
@@ -55,18 +70,17 @@ class BackendService {
         final data = res.data is Map ? res.data : null;
         if (data != null && data['status'] == 'initialized') {
           _ready = true;
-          if (kDebugMode) print('[BACKEND] ready');
+          print('[BACKEND] ready');
           return true;
         }
       } catch (_) {}
       await Future.delayed(const Duration(milliseconds: 600));
     }
-    _readyFuture = null; // allow another attempt later
+    _readyFuture = null;
     return false;
   }
 
   /// Returns the raw /init status map: {status, progress, message}.
-  /// Throws if the backend is not reachable yet.
   Future<Map<String, dynamic>> getInitStatus() async {
     final res = await _dio.get('/init',
         options: Options(receiveTimeout: const Duration(seconds: 3)));

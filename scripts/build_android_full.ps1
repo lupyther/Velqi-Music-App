@@ -1,6 +1,7 @@
 # Build completo de Android: paso 1 (serious_python) + trim seguro + paso 2 (flutter build)
 $ErrorActionPreference = "Stop"
-$root = "C:\Users\Admin\Desktop\Nueva carpeta\Harmony-Music"
+$env:PATH = "C:\flutter\bin;" + $env:PATH
+$root = "C:\Users\Admin\Desktop\Velqi-Music-App"
 Set-Location $root
 
 Write-Host "== PASO 1: Empaquetar Python con serious_python (instala yt-dlp fresco) =="

@@ -82,6 +82,41 @@ Widget _borderedTile({
   );
 }
 
+/// A single credit row: icon + label (dim) + value (bold).
+Widget _creditRow({
+  required BuildContext context,
+  required IconData icon,
+  required String label,
+  required String value,
+}) {
+  final cs = Theme.of(context).colorScheme;
+  return Row(
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+      Icon(icon, size: 17, color: cs.onSurface.withOpacity(0.45)),
+      const SizedBox(width: 10),
+      Text(
+        label,
+        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: cs.onSurface.withOpacity(0.55),
+              fontSize: 12,
+            ),
+      ),
+      const SizedBox(width: 6),
+      Expanded(
+        child: Text(
+          value,
+          textAlign: TextAlign.end,
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                fontWeight: FontWeight.w600,
+                fontSize: 13,
+              ),
+        ),
+      ),
+    ],
+  );
+}
+
 // ── Main Settings screen ────────────────────────────────────────────────────
 
 class SettingsScreen extends StatelessWidget {
@@ -116,35 +151,83 @@ class SettingsScreen extends StatelessWidget {
                 // ── New version banner ──────────────────────────────────────
                 Obx(
                   () => settingsController.isNewVersionAvailable.value
-                      ? Container(
-                          margin: const EdgeInsets.only(bottom: 8),
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.secondary,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: ListTile(
-                            onTap: () {
-                              launchUrl(
-                                Uri.parse(
-                                  'https://github.com/lupyther/Velqi-Music-App/releases/latest',
+                      ? GestureDetector(
+                          onTap: () {
+                            launchUrl(
+                              Uri.parse(
+                                'https://github.com/lupyther/Velqi-Music-App/releases/latest',
+                              ),
+                              mode: LaunchMode.externalApplication,
+                            );
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.only(bottom: 12),
+                            decoration: BoxDecoration(
+                              gradient: const LinearGradient(
+                                colors: [
+                                  Color(0xFF7C3AED),
+                                  Color(0xFF4F46E5),
+                                ],
+                                begin: Alignment.centerLeft,
+                                end: Alignment.centerRight,
+                              ),
+                              borderRadius: BorderRadius.circular(14),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: const Color(0xFF7C3AED).withOpacity(0.45),
+                                  blurRadius: 16,
+                                  offset: const Offset(0, 4),
                                 ),
-                                mode: LaunchMode.externalApplication,
-                              );
-                            },
-                            contentPadding:
-                                const EdgeInsets.only(left: 8, right: 10),
-                            leading: const CircleAvatar(
-                                child: Icon(Icons.download)),
-                            title: Text("newVersionAvailable".tr),
-                            visualDensity:
-                                const VisualDensity(horizontal: -2),
-                            subtitle: Text(
-                              "goToDownloadPage".tr,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(
-                                      color: Colors.white70, fontSize: 13),
+                              ],
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 14),
+                            child: Row(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.white.withOpacity(0.18),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  padding: const EdgeInsets.all(8),
+                                  child: const Icon(
+                                    Icons.system_update_rounded,
+                                    color: Colors.white,
+                                    size: 22,
+                                  ),
+                                ),
+                                const SizedBox(width: 14),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "newVersionAvailable".tr,
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 14,
+                                          letterSpacing: 0.2,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 2),
+                                      Text(
+                                        "goToDownloadPage".tr,
+                                        style: const TextStyle(
+                                          color: Colors.white70,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const Icon(
+                                  Icons.arrow_forward_ios_rounded,
+                                  color: Colors.white70,
+                                  size: 16,
+                                ),
+                              ],
                             ),
                           ),
                         )
@@ -723,58 +806,85 @@ class SettingsScreen extends StatelessWidget {
                   title: "appInfo".tr,
                   children: [
                     Padding(
-                      padding:
-                          const EdgeInsets.fromLTRB(12, 12, 12, 4),
+                      padding: const EdgeInsets.fromLTRB(12, 16, 12, 8),
                       child: Column(
                         children: [
-                          ClipRRect(
-                            borderRadius:
-                                BorderRadius.circular(20),
-                            child: Image.asset(
-                              'assets/velqi_guitar.png',
-                              width: 140,
-                              height: 140,
-                              fit: BoxFit.contain,
-                              filterQuality: FilterQuality.high,
-                              color: Theme.of(context).brightness ==
-                                      Brightness.light
-                                  ? Colors.black.withAlpha(230)
-                                  : null,
-                              colorBlendMode: BlendMode.srcIn,
-                            ),
+                          // Logo
+                          Image.asset(
+                            'assets/velqi_guitar.png',
+                            width: 120,
+                            height: 120,
+                            fit: BoxFit.contain,
+                            filterQuality: FilterQuality.high,
+                            color: Theme.of(context).brightness ==
+                                    Brightness.light
+                                ? Colors.black.withAlpha(230)
+                                : null,
+                            colorBlendMode: BlendMode.srcIn,
                           ),
                           const SizedBox(height: 12),
+                          // App name + version
                           Text(
                             "Velqi ${settingsController.currentVersion}",
                             style: Theme.of(context)
                                 .textTheme
-                                .titleLarge,
+                                .titleLarge
+                                ?.copyWith(fontWeight: FontWeight.w700),
                           ),
-                          const SizedBox(height: 6),
-                          Text(
-                            "Programado por @lupyther",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(
-                                  letterSpacing: 0.3,
-                                ),
+                          const SizedBox(height: 16),
+                          // Divider
+                          Divider(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSurface
+                                .withOpacity(0.12),
+                            height: 1,
                           ),
-                          const SizedBox(height: 2),
+                          const SizedBox(height: 14),
+                          // Credits block
+                          _creditRow(
+                            context: context,
+                            icon: Icons.lightbulb_outline_rounded,
+                            label: 'Original concept',
+                            value: '@LuPyther & @addhip',
+                          ),
+                          const SizedBox(height: 10),
+                          _creditRow(
+                            context: context,
+                            icon: Icons.code_rounded,
+                            label: 'Development',
+                            value: '@lupyther',
+                          ),
+                          const SizedBox(height: 10),
+                          _creditRow(
+                            context: context,
+                            icon: Icons.brush_rounded,
+                            label: 'Artwork & illustrations',
+                            value: '@Runix_The_Creator',
+                          ),
+                          const SizedBox(height: 14),
+                          Divider(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSurface
+                                .withOpacity(0.12),
+                            height: 1,
+                          ),
+                          const SizedBox(height: 10),
                           Text(
-                            "Diseños por @Runix",
+                            'Open source · Free forever',
                             style: Theme.of(context)
                                 .textTheme
                                 .bodySmall
                                 ?.copyWith(
-                                  letterSpacing: 0.3,
                                   color: Theme.of(context)
                                       .colorScheme
                                       .onSurface
-                                      .withOpacity(0.6),
+                                      .withOpacity(0.45),
+                                  letterSpacing: 0.5,
                                 ),
                           ),
-
+                          const SizedBox(height: 4),
                         ],
                       ),
                     ),

@@ -61,6 +61,9 @@ Velqi está disponible en **50 idiomas**. Si quieres ayudar a mejorar o agregar 
 
 > Si no sabes cuál elegir, descarga `Velqi-1.2.1-arm64-v8a.apk`.
 
+> [!NOTE]
+> **Muy pronto — v1.2.2** 🚀 Correcciones de crasheos al reabrir la app, mejoras en la UI de ajustes y más.
+
 ### Cambios recientes (v1.2.1)
 
 - **Exportar música al dispositivo corregido** — Se corrigió el permiso de almacenamiento en Android 11+ que impedía exportar canciones. Ahora abre la página de ajustes "Acceso a todos los archivos" automáticamente.
@@ -156,6 +159,9 @@ Choose the APK that matches your device architecture:
 </div>
 
 > If you're unsure which APK to pick, download `Velqi-1.2.1-arm64-v8a.apk`.
+
+> [!NOTE]
+> **Coming soon — v1.2.2** 🚀 Crash fixes when reopening the app, Settings UI improvements and more.
 
 ### Recent changes (v1.2.1)
 

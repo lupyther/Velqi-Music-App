@@ -23,10 +23,10 @@ class ThemeController extends GetxController {
 
     // Default to Velqi violet (#7C3AED = 4290363117) if no saved preference
     primaryColor.value =
-        Color(Hive.box('appPrefs').get("themePrimaryColor") ?? 0xFF7C3AED);
+        Color(Hive.box('AppPrefs').get("themePrimaryColor") ?? 0xFF7C3AED);
 
     // Load saved theme preference, default to dark (index 2)
-    final savedIndex = Hive.box('appPrefs').get('themeModeType') ?? 2;
+    final savedIndex = Hive.box('AppPrefs').get('themeModeType') ?? 2;
     final themeType = ThemeType.values[savedIndex.clamp(0, ThemeType.values.length - 1)];
     changeThemeModeType(themeType);
 
@@ -40,7 +40,7 @@ class ThemeController extends GetxController {
     platformDispatcher.onPlatformBrightnessChanged = () {
       systemBrightness = platformDispatcher.platformBrightness;
       // Only react to system changes if user selected "system" mode
-      final savedIndex = Hive.box('appPrefs').get('themeModeType') ?? 2;
+      final savedIndex = Hive.box('AppPrefs').get('themeModeType') ?? 2;
       if (savedIndex == ThemeType.system.index) {
         changeThemeModeType(ThemeType.system, sysCall: true);
       }
@@ -87,7 +87,7 @@ class ThemeController extends GetxController {
         textColor: textColor.value,
         titleColorSwatch: _createMaterialColor(textColor.value));
     currentSongId = songId;
-    Hive.box('appPrefs').put("themePrimaryColor", (primaryColor.value!).value);
+    Hive.box('AppPrefs').put("themePrimaryColor", (primaryColor.value!).value);
     setWindowsTitleBarColor(themedata.value!.scaffoldBackgroundColor);
   }
 
